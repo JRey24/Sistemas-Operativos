@@ -1,0 +1,60 @@
+package servidores;
+  
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServidoresBanco {
+
+   	static final int Puerto=5000;
+	static ServerSocket skServidor;
+        public static String nombre_SO,version_SO,Arq_SO;
+        
+	static class Server
+	{  
+             Server()
+	   {	 
+	   }
+	 void crearComunicacion()
+	  { 
+              nombre_SO= System.getProperty("os.name");
+              version_SO= System.getProperty("os.version");
+              Arq_SO= System.getProperty("os.arch");
+              //System.out.println("Nombre del Sistema Operativo:" +nombre_SO+ " "+version_SO+ " " +A
+              
+	   try{
+	         Socket skCliente = skServidor.accept(); // Acepta peticiones
+                 
+                  InputStream aux2 = skCliente.getInputStream();
+                  DataInputStream flujo2 = new DataInputStream(aux2);
+                  System.out.println(flujo2.readUTF());
+                 
+		 OutputStream aux = skCliente.getOutputStream();
+                 DataOutputStream flujo= new DataOutputStream( aux );
+		 flujo.writeUTF( nombre_SO+" "+version_SO+" "+Arq_SO);
+               
+		 skCliente.close();
+	       }catch( Exception e ) 
+		     {
+		       System.out.println("Fallo la Conexion con el Cliente");
+		     }
+         }
+        }
+	  
+    public static void main(String[] args) {
+        try
+		{
+			skServidor = new ServerSocket(Puerto);
+		}catch(Exception e)
+		{
+			System.out.println("Fallo en la Comunicación!!");
+		}
+		Server s=new Server();
+		s. crearComunicacion ();
+		
+    }
+    
+}
