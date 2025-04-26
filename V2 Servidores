@@ -6,17 +6,27 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ServidoresBanco {
+public class ServidoresBancov2 {
 
    	static final int Puerto=5000;
 	static ServerSocket skServidor;
-        public static String nombre_SO,version_SO,Arq_SO;
+        public static String nombre_SO,version_SO,Arq_SO, ipServidor;
+        
+        static private final Logger LOGGER = Logger.getLogger("mx.com.hash.checkip.CheckIP");
+        
+            String obtenerIP() throws UnknownHostException {
+            InetAddress ip = InetAddress.getLocalHost();
+            return ip.getHostAddress();
+        }
         
 	static class Server
 	{  
-             Server()
-	   {	 
+             Server(){	 
 	   }
 	 void crearComunicacion()
 	  { 
@@ -34,23 +44,32 @@ public class ServidoresBanco {
                  
 		 OutputStream aux = skCliente.getOutputStream();
                  DataOutputStream flujo= new DataOutputStream( aux );
-		 flujo.writeUTF( nombre_SO+" "+version_SO+" "+Arq_SO);
+		 flujo.writeUTF("La ip del Servidor es: "+ipServidor+" "+nombre_SO+" "+version_SO+" "+Arq_SO);
                
 		 skCliente.close();
 	       }catch( Exception e ) 
-		     {
+		    {
 		       System.out.println("Fallo la Conexion con el Cliente");
-		     }
+                    }
          }
         }
 	  
     public static void main(String[] args) {
+        ServidoresBancov2 servidor = new ServidoresBancov2();
+        try {
+            ipServidor=servidor.obtenerIP();
+            System.out.println("La IP de su computadora es " + ipServidor);
+            } catch (UnknownHostException ex) {
+            LOGGER.log(Level.SEVERE, "Error al consultar el Host");
+            LOGGER.log(Level.SEVERE, null, ex);
+            }
+        
         try
 		{
 			skServidor = new ServerSocket(Puerto);
 		}catch(Exception e)
 		{
-			System.out.println("Fallo en la Comunicación!!");
+                       System.out.println("Fallo en la Comunicación!!");
 		}
 		Server s=new Server();
 		s. crearComunicacion ();
