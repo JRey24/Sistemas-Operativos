@@ -44,8 +44,7 @@ public class ServidoresBancov2 {
                  
 		 OutputStream aux = skCliente.getOutputStream();
                  DataOutputStream flujo= new DataOutputStream( aux );
-		 flujo.writeUTF("La ip del Servidor es: "+ipServidor+" "+nombre_SO+" "+version_SO+" "+Arq_SO);
-               
+		 flujo.writeUTF("La ip del Servidor es: "+ipServidor+" El sistema Operativo es: "+nombre_SO+" La version del Sistema es: "+version_SO+" La arquitectura del sistema es: "+Arq_SO);
 		 skCliente.close();
 	       }catch( Exception e ) 
 		    {
