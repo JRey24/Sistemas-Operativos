@@ -29,28 +29,28 @@ public class ServidoresBancov2 {
              Server(){	 
 	   }
 	 void crearComunicacion()
-	  { 
+	{ 
               nombre_SO= System.getProperty("os.name");
               version_SO= System.getProperty("os.version");
               Arq_SO= System.getProperty("os.arch");
-              //System.out.println("Nombre del Sistema Operativo:" +nombre_SO+ " "+version_SO+ " " +A
               
 	   try{
 	         Socket skCliente = skServidor.accept(); // Acepta peticiones
                  
-                  InputStream aux2 = skCliente.getInputStream();
-                  DataInputStream flujo2 = new DataInputStream(aux2);
-                  System.out.println(flujo2.readUTF());
+                InputStream aux2 = skCliente.getInputStream();
+                DataInputStream flujo2 = new DataInputStream(aux2);
+                System.out.println(flujo2.readUTF());
                  
-		 OutputStream aux = skCliente.getOutputStream();
-                 DataOutputStream flujo= new DataOutputStream( aux );
-		 flujo.writeUTF("La ip del Servidor es: "+ipServidor+" El sistema Operativo es: "+nombre_SO+" La version del Sistema es: "+version_SO+" La arquitectura del sistema es: "+Arq_SO);
-		 skCliente.close();
+		OutputStream aux = skCliente.getOutputStream();
+                DataOutputStream flujo= new DataOutputStream( aux );
+                flujo.writeUTF("La ip del Servidor es: "+ipServidor+" El sistema Operativo es: " +nombre_SO+ " La version del Sistema es: "+version_SO+ " La arquitectura del sistema es: "+Arq_SO);
+               
+		skCliente.close();
 	       }catch( Exception e ) 
 		    {
 		       System.out.println("Fallo la Conexion con el Cliente");
                     }
-         }
+        }
         }
 	  
     public static void main(String[] args) {
