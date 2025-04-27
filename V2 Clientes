@@ -11,17 +11,18 @@ import java.net.Socket;
  * @author USUARIO
  */
 public class ClientesBancosv2 {
-    static final String HOST = "localhost";
+    static final String HOST = "192.168.20.15"; //aca se coloca la IP, y si es de manera local usamos "localhost"
     static final int Puerto = 5000;
     static Socket skCliente;
     static class Clien {
         Clien() {
-        }    
+        }
         void proceso() {
             try {
                 OutputStream aux2 = skCliente.getOutputStream();
                 DataOutputStream flujo2= new DataOutputStream( aux2 );
 		flujo2.writeUTF( "Por favor enviame las caracteristicas de su máquina(IP, Sistema Operativo, Version y Arquitectura) ");
+                System.out.println("La Informacion de Pc  es: "); //aca coloco si es el tipo de PC
                  
                 InputStream aux = skCliente.getInputStream();
                 DataInputStream flujo = new DataInputStream(aux);
@@ -38,7 +39,7 @@ public class ClientesBancosv2 {
             skCliente=new Socket(HOST,Puerto);
             System.out.println("Se Activo el cliente");
         } catch (Exception e) {
-             System.out.println("No se activo el cliente");
+            System.out.println("No se activo el cliente");
         }
         Clien c = new Clien();
         c.proceso();
