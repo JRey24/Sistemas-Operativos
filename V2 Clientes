@@ -21,7 +21,7 @@ public class ClientesBancosv2 {
             try {
                 OutputStream aux2 = skCliente.getOutputStream();
                 DataOutputStream flujo2= new DataOutputStream( aux2 );
-		flujo2.writeUTF( "Por favor enviame las caracteristicas de su máquina(IP, Sistema Operativo, Version y Arquitectura) ");
+		flujo2.writeUTF( "Por favor enviame las caracteristicas de su máquina computador ' '(IP, Sistema Operativo, Version y Arquitectura) "); //aca coloco si es el tipo de PC
                 System.out.println("La Informacion de Pc ' ' es: "); //aca coloco si es el tipo de PC
                  
                 InputStream aux = skCliente.getInputStream();
