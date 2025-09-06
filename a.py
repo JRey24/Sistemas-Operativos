@@ -5,3 +5,5 @@ if nombre == nombre:
     print("Es igual")
 else:
     print("No es igual")
+
+si blablnskaska
