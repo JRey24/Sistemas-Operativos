@@ -1,0 +1,53 @@
+package servidores;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServidoresBancov1 {
+
+   	static final int Puerto=5000;
+	static ServerSocket skServidor;
+	static class Server
+	{  
+             Server()
+	   {	 
+	   }
+	 void crearComunicacion()
+	  { 
+	   try{
+	         Socket skCliente = skServidor.accept(); // Acepta peticiones
+		 OutputStream aux = skCliente.getOutputStream();
+                       DataOutputStream flujo= new DataOutputStream( aux );
+		 flujo.writeUTF( "Hola cliente Juan PC Grande ");
+                 
+                 InputStream aux2 = skCliente.getInputStream();
+                DataInputStream flujo2 = new DataInputStream(aux2);
+                System.out.println(flujo2.readUTF());
+                
+		 skCliente.close();
+	       }catch( Exception e ) 
+		     {
+		       System.out.println("Fallo la Conexion con el Cliente");
+		     }
+         }
+        }
+	  
+    public static void main(String[] args) {
+        try
+		{
+			skServidor = new ServerSocket(Puerto);
+		}catch(Exception e)
+		{
+			System.out.println("Fallo en la Comunicación!!");
+		}
+		Server s=new Server();
+		s. crearComunicacion ();
+		
+    }
+    
+}
+

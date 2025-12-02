@@ -1,0 +1,48 @@
+package clientes;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
+/**
+ *
+ * @author USUARIO
+ */
+public class ClientesBancosv1 {
+    static final String HOST = "localhost";
+    static final int Puerto = 5000;
+    static Socket skCliente;
+    static class Clien {
+        Clien() {
+        }
+        void proceso() {
+            try {
+                OutputStream aux2 = skCliente.getOutputStream();
+                       DataOutputStream flujo2= new DataOutputStream( aux2 );
+		 flujo2.writeUTF( "Hola Servidor Juan Pc Grande ");
+                 
+                InputStream aux = skCliente.getInputStream();
+                DataInputStream flujo = new DataInputStream(aux);
+                System.out.println(flujo.readUTF());
+                
+                skCliente.close();
+            } catch (Exception e) {
+                System.out.println("No se activo el cliente");
+            }
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            skCliente=new Socket(HOST,Puerto);
+            System.out.println("Se Activo el cliente");
+        } catch (Exception e) {
+             System.out.println("No se activo el cliente");
+        }
+        Clien c = new Clien();
+        c.proceso();
+    }
+}
+
+
